@@ -225,20 +225,6 @@ button {
   background: var(--accent);
 }
 
-.lang-select {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 11px 13px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: #ffffff;
-  color: var(--text-dim);
-  font-size: 12.5px;
-  margin-top: 14px;
-  cursor: default;
-}
-
 .sidebar-bottom {
   margin-top: 18px;
   border-top: 1px solid var(--border);
