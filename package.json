@@ -1,7 +1,7 @@
 {
   "name": "onlythatlove",
   "productName": "onlyThatLove",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "磁盘清理助手 - onlyThatLove",
   "main": "src/main/main.js",
   "author": "onlyThatLove",
