@@ -62,7 +62,7 @@ function createWindow() {
     minWidth: 1100,
     minHeight: 680,
     show: false,
-    backgroundColor: '#0b1220',
+    backgroundColor: '#eff3f8',
     title: 'onlyThatLove · 磁盘清理助手',
     autoHideMenuBar: true,
     frame: false, // 使用渲染层的自绘标题栏
