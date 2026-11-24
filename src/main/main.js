@@ -63,7 +63,7 @@ function createWindow() {
     minHeight: 680,
     show: false,
     backgroundColor: '#eff3f8',
-    title: 'onlyThatLove · 磁盘清理助手',
+    title: '磁盘清理助手',
     autoHideMenuBar: true,
     frame: false, // 使用渲染层的自绘标题栏
     webPreferences: {
