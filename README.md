@@ -1,7 +1,7 @@
-# onlyThatLove · 磁盘清理助手
+# 磁盘清理助手
 
 <p align="center">
-  <img src="build/icon.png" width="120" alt="onlyThatLove 图标">
+  <img src="build/icon.png" width="120" alt="磁盘清理助手图标">
 </p>
 
 <p align="center">
@@ -17,14 +17,14 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshot.png" width="900" alt="onlyThatLove 主界面">
+  <img src="docs/screenshot.png" width="900" alt="磁盘清理助手主界面">
 </p>
 
 ---
 
 ## 为什么用它
 
-| | 常见清理软件 | onlyThatLove |
+| | 常见清理软件 | 磁盘清理助手 |
 | --- | --- | --- |
 | 广告 / 全家桶 | 弹广告、装别的软件 | **无广告、无附加安装** |
 | 隐私 | 上传文件信息、埋点统计 | **纯本地离线，零网络请求** |
@@ -38,9 +38,9 @@
 
 | 文件 | 大小 | 适合谁 |
 | --- | --- | --- |
-| `onlyThatLove-x.x.x-setup.exe` | ~74 MB | **安装版**，适合大多数用户。有安装向导、桌面快捷方式、卸载程序 |
-| `onlyThatLove-x.x.x-portable.exe` | ~74 MB | **免安装版**，想直接双击试用、不想装。单文件，绿色运行 |
-| `onlyThatLove-x.x.x-green.7z` | ~67 MB | **绿色版**，需要解压软件。体积最小、启动最快 |
+| `onlyThatLove-x.x.x-setup.exe` | ~71 MB | **安装版**，适合大多数用户。有安装向导、桌面快捷方式、卸载程序 |
+| `onlyThatLove-x.x.x-portable.exe` | ~71 MB | **免安装版**，想直接双击试用、不想装。单文件，绿色运行 |
+| `onlyThatLove-x.x.x-green.7z` | ~64 MB | **绿色版**，需要解压软件。体积最小、启动最快 |
 
 > 免安装版与绿色版把数据保存在程序目录的 `onlyThatLove-data`，**整个文件夹拷到 U 盘即可带走配置**。安装版使用系统默认目录。
 
@@ -48,11 +48,11 @@
 
 **清理体检** — 扫描 11 类固定位置的缓存与垃圾，按「低 / 中 / 高」风险分级；点开任一项可查看位置、删除后果与建议，勾选后一键清理。
 
-**跨盘清理** — 在每块选中的磁盘上按目录名探测额外 11 类残留：包管理器缓存、Windows 更新缓存、音乐软件缓存、Photoshop 自动恢复、下载目录、聊天记录等。**D 盘、外接盘一视同仁，不写死 C 盘。**
+**跨盘清理** — 在每块选中的磁盘上按目录名探测额外 12 类残留：包管理器缓存、Windows 更新缓存、音乐软件缓存、Photoshop 自动恢复、下载目录、聊天记录等。**D 盘、外接盘一视同仁，不写死 C 盘。**
 
 **大文件查找** — 选择全部磁盘或任意单盘，按阈值（≥100MB / 500MB / 1GB）列出占空间的大文件。边扫边出结果，双击定位，勾选后删除**到回收站**。
 
-**其它** — 多语言、深色主题、自绘标题栏；左侧磁盘卡片可点击切换参与扫描的磁盘，实时显示各盘占用；操作日志记录每次扫描与清理结果。
+**其它** — 简体中文界面、浅色主题、自绘标题栏；左侧磁盘卡片可点击切换参与扫描的磁盘，实时显示各盘占用；操作日志记录每次扫描与清理结果。
 
 ### 清理项一览
 
@@ -83,7 +83,7 @@
 </details>
 
 <details>
-<summary><b>跨盘探测规则（11 类）</b> — 点击展开</summary>
+<summary><b>跨盘探测规则（12 类）</b> — 点击展开</summary>
 
 在每块选中的盘上探测以下目录，**探测到的才显示为一行**。一律按目录名精确匹配，不做通配递归。
 
@@ -98,8 +98,9 @@
 | 损坏的依赖残留 | `node_modules.broken*` | 低 |
 | Photoshop 自动恢复文件 | `PSAutoRecover` | 中 |
 | 软件管家迁移文件 | `电脑管家迁移文件` | 中 |
-| 下载目录 | `迅雷下载`、`BaiduNetdiskDownload`、`Downloads` 等 | 高 |
+| 下载目录 | `迅雷下载`、`BaiduNetdiskDownload`、`Downloads`、`ThunderDownload` | 高 |
 | 聊天软件数据 | `WeChat`、`Weixin`、`xwechat_files`、`Tencent Files` | 高 |
+| 临时文件残留 | 根目录下 `_tmp_*` 前缀文件 | 低 |
 
 > 「下载目录」与「聊天软件数据」标记为**个人数据**，只会列出，必须勾选并二次确认后才会移入回收站。
 
@@ -177,7 +178,7 @@ src/
     winutil.js   目录遍历、删除、回收站、磁盘、权限
   renderer/
     index.html   页面结构
-    styles.css   深色主题
+    styles.css   浅色主题
     app.js       渲染逻辑
 ```
 
@@ -185,4 +186,4 @@ src/
 
 ## 许可证
 
-[MIT](LICENSE) © 2026 onlyThatLove
+[MIT](LICENSE) © 2026 磁盘清理助手
