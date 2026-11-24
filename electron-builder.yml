@@ -30,14 +30,14 @@
       }
     ],
     "icon": "build/icon.ico",
-    "artifactName": "${productName}-${version}-绿色版.${ext}",
+    "artifactName": "${productName}-${version}-green.${ext}",
     "signAndEditExecutable": false
   },
   "portable": {
-    "artifactName": "${productName}-${version}-免安装.${ext}"
+    "artifactName": "${productName}-${version}-portable.${ext}"
   },
   "nsis": {
-    "artifactName": "${productName}-${version}-安装包.${ext}",
+    "artifactName": "${productName}-${version}-setup.${ext}",
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,

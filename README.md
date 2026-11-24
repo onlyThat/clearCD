@@ -38,9 +38,9 @@
 
 | 文件 | 大小 | 适合谁 |
 | --- | --- | --- |
-| `onlyThatLove-x.x.x-安装包.exe` | ~74 MB | 大多数用户。有安装向导、桌面快捷方式、卸载程序 |
-| `onlyThatLove-x.x.x-免安装.exe` | ~74 MB | 想直接双击试用、不想装。单文件，绿色运行 |
-| `onlyThatLove-x.x.x-绿色版.7z` | ~67 MB | 需要解压软件。体积最小、启动最快 |
+| `onlyThatLove-x.x.x-setup.exe` | ~74 MB | **安装版**，适合大多数用户。有安装向导、桌面快捷方式、卸载程序 |
+| `onlyThatLove-x.x.x-portable.exe` | ~74 MB | **免安装版**，想直接双击试用、不想装。单文件，绿色运行 |
+| `onlyThatLove-x.x.x-green.7z` | ~67 MB | **绿色版**，需要解压软件。体积最小、启动最快 |
 
 > 免安装版与绿色版把数据保存在程序目录的 `onlyThatLove-data`，**整个文件夹拷到 U 盘即可带走配置**。安装版使用系统默认目录。
 

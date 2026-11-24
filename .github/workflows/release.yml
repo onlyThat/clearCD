@@ -62,8 +62,8 @@ jobs:
           name: onlyThatLove ${{ github.ref_name }}
           generate_release_notes: true
           files: |
-            dist/*安装包.exe
-            dist/*免安装.exe
-            dist/*绿色版.7z
+            dist/*-setup.exe
+            dist/*-portable.exe
+            dist/*-green.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
