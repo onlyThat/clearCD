@@ -6,11 +6,15 @@
   "main": "src/main/main.js",
   "author": "onlyThatLove",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/onlyThat/clearCD.git"
+  },
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --win nsis"
+    "dist": "electron-builder --win"
   },
   "devDependencies": {
     "electron": "^33.2.0",
