@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+    />
+    <title>onlyThatLove · 磁盘清理助手</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="titlebar">
+      <div class="titlebar-brand">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="15" height="15">
+            <path
+              d="M12 3a9 9 0 1 0 8.49 12H16.3A5 5 0 1 1 15.9 9h4.6A9 9 0 0 0 12 3z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span>onlyThatLove · 磁盘清理助手</span>
+      </div>
+      <div class="titlebar-controls">
+        <button class="tb-btn" id="btn-min" title="最小化" aria-label="最小化">
+          <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2 6h8" stroke="currentColor" stroke-width="1.2" /></svg>
+        </button>
+        <button class="tb-btn" id="btn-max" title="最大化" aria-label="最大化">
+          <svg viewBox="0 0 12 12" width="10" height="10"><rect x="2.5" y="2.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+        </button>
+        <button class="tb-btn tb-close" id="btn-close" title="关闭" aria-label="关闭">
+          <svg viewBox="0 0 12 12" width="10" height="10"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.2" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="app">
+      <!-- ============================ 侧边栏 ============================ -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" width="22" height="22">
+              <path
+                d="M12 3a9 9 0 1 0 8.49 12H16.3A5 5 0 1 1 15.9 9h4.6A9 9 0 0 0 12 3z"
+                fill="#fff"
+              />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">onlyThatLove</div>
+            <div class="brand-sub">磁盘清理助手</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="scan">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path
+                d="M12 21a9 9 0 1 0-9-9h2a7 7 0 1 1 7 7v2z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <span>清理体检</span>
+          </button>
+          <button class="nav-item" data-view="bigfiles">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path
+                d="M3 7h6l2 2h10v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>大文件</span>
+          </button>
+          <button class="nav-item" data-view="logs">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            <span>日志</span>
+          </button>
+        </nav>
+
+        <div class="lang-select" id="lang-select">
+          <span>语言 · 简体中文</span>
+          <svg viewBox="0 0 12 12" width="10" height="10">
+            <path d="M3 4.5L6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="drives-list" id="drives"></div>
+          <div class="admin-line" id="admin-line">检测中…</div>
+          <div class="version-line">onlyThatLove <span id="app-version">1.0.1</span></div>
+        </div>
+      </aside>
+
+      <!-- ============================ 主区域 ============================ -->
+      <main class="main">
+        <!-- 清理体检 -->
+        <section class="view view-scan active" id="view-scan">
+          <header class="view-head">
+            <div>
+              <h1>清理体检</h1>
+              <p class="hint">先扫描、再勾选；扫描只统计文件大小，不删除任何内容</p>
+            </div>
+            <div class="head-right">
+              <span class="scan-range" id="scan-range">未选择磁盘</span>
+              <span class="last-scan">上次扫描 <span id="last-scan-time">--</span></span>
+              <button class="btn-ghost" id="btn-rescan">
+                <svg viewBox="0 0 16 16" width="13" height="13">
+                  <path
+                    d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path d="M13.6 2v3.2h-3.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                重新扫描
+              </button>
+              <button class="btn-elevate" id="btn-elevate">管理员</button>
+            </div>
+          </header>
+
+          <!-- 统计卡片 -->
+          <div class="stat-row">
+            <div class="stat-card">
+              <div class="stat-label"><i class="dot dot-total"></i>可清理总量</div>
+              <div class="stat-value" id="stat-total">--</div>
+              <div class="stat-sub" id="stat-total-sub">扫描中…</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label"><i class="dot dot-low"></i>低风险</div>
+              <div class="stat-value" id="stat-low">--</div>
+              <div class="stat-sub" id="stat-low-sub">--</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label"><i class="dot dot-mid"></i>中风险</div>
+              <div class="stat-value" id="stat-mid">--</div>
+              <div class="stat-sub" id="stat-mid-sub">--</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label"><i class="dot dot-high"></i>高风险</div>
+              <div class="stat-value" id="stat-high">--</div>
+              <div class="stat-sub" id="stat-high-sub">--</div>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="search">
+              <svg viewBox="0 0 16 16" width="14" height="14">
+                <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+                <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+              </svg>
+              <input id="search-input" type="text" placeholder="" spellcheck="false" />
+            </div>
+            <div class="selection-info" id="selection-info">已选 0 项 · 0 B</div>
+            <div class="toolbar-actions">
+              <button class="btn-ghost" id="btn-select-low">全选低风险</button>
+              <button class="btn-ghost" id="btn-clear-sel">取消全选</button>
+              <button class="btn-primary" id="btn-clean" disabled>清理选中项</button>
+            </div>
+          </div>
+
+          <div class="content-row">
+            <div class="table-card">
+              <div class="table-head">
+                <span class="col-check"></span>
+                <span class="col-name">清理项目</span>
+                <span class="col-size sortable" id="sort-size">
+                  大小
+                  <svg viewBox="0 0 10 10" width="9" height="9"><path d="M5 1.5L8 5H2z" fill="currentColor" /></svg>
+                </span>
+                <span class="col-risk">风险</span>
+              </div>
+              <div class="table-body" id="table-body">
+                <div class="empty-state" id="scan-empty">
+                  <div class="spinner"></div>
+                  <div>正在扫描…</div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="detail-card">
+              <div class="detail-scroll">
+                <div class="detail-title" id="detail-title">项目详情</div>
+                <div class="detail-name" id="detail-name">未选择项目</div>
+                <div class="detail-size-row" id="detail-size-row" hidden>
+                  <span class="risk-pill" id="detail-risk">--</span>
+                  <span class="detail-size" id="detail-size">--</span>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-h">删除后果</div>
+                  <div class="detail-p" id="detail-consequence">在上方列表中选择一个清理项目查看详情。</div>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-h">建议</div>
+                  <div class="detail-p" id="detail-suggestion">—</div>
+                </div>
+                <div class="detail-section">
+                  <div class="detail-h">位置</div>
+                  <div class="detail-p path" id="detail-location">—</div>
+                </div>
+              </div>
+              <div class="detail-actions">
+                <button class="btn-primary btn-wide" id="btn-add-clean" disabled>加入清理</button>
+                <button class="btn-ghost btn-wide" id="btn-open-folder" disabled>
+                  <svg viewBox="0 0 16 16" width="13" height="13">
+                    <path
+                      d="M2 4.5h4l1.2 1.4H14V13a.8.8 0 0 1-.8.8H2.8A.8.8 0 0 1 2 13V4.5z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.3"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  打开所在文件夹
+                </button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- 大文件 -->
+        <section class="view view-bigfiles" id="view-bigfiles">
+          <header class="view-head">
+            <div>
+              <h1>大文件</h1>
+              <p class="hint">点击左侧磁盘条选择扫描范围，勾选文件后可删除到回收站</p>
+            </div>
+            <div class="head-right">
+              <label class="inline-label">磁盘
+                <select id="bigfile-drive" class="select"></select>
+              </label>
+              <label class="inline-label">阈值
+                <select id="bigfile-threshold" class="select">
+                  <option value="104857600">≥ 100 MB</option>
+                  <option value="524288000">≥ 500 MB</option>
+                  <option value="1073741824" selected>≥ 1 GB</option>
+                </select>
+              </label>
+              <button class="btn-ghost" id="btn-bigfile-scan">开始扫描</button>
+            </div>
+          </header>
+          <div class="toolbar toolbar-bigfile">
+            <div class="selection-info" id="bigfile-selection-info">已选 0 项 · 0 B</div>
+            <div class="toolbar-actions">
+              <button class="btn-ghost" id="btn-bigfile-select-all">全选</button>
+              <button class="btn-ghost" id="btn-bigfile-clear-sel">取消全选</button>
+              <button class="btn-danger" id="btn-bigfile-delete" disabled>
+                <svg viewBox="0 0 16 16" width="13" height="13">
+                  <path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.2a1 1 0 0 0 1 .8h3.8a1 1 0 0 0 1-.8l.6-8.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span id="btn-bigfile-delete-label">删除选中项</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-card table-card-full">
+            <div class="table-head bigfile-head">
+              <span class="col-check"></span>
+              <span class="col-path">文件路径</span>
+              <span class="col-size">大小</span>
+              <span class="col-modified">修改时间</span>
+            </div>
+            <div class="table-body" id="bigfile-body">
+              <div class="empty-state">在左侧选择磁盘、设置阈值后点击「开始扫描」</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 日志 -->
+        <section class="view view-logs" id="view-logs">
+          <header class="view-head">
+            <div>
+              <h1>日志</h1>
+              <p class="hint">记录每次扫描与清理的结果</p>
+            </div>
+            <div class="head-right">
+              <button class="btn-ghost" id="btn-log-clear">清空日志</button>
+            </div>
+          </header>
+          <div class="table-card table-card-full">
+            <div class="table-body log-body" id="log-body">
+              <div class="empty-state">暂无日志</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- 进度遮罩 -->
+    <div class="overlay" id="overlay" hidden>
+      <div class="overlay-box">
+        <div class="overlay-title" id="overlay-title">正在扫描…</div>
+        <div class="overlay-sub" id="overlay-sub">准备中</div>
+        <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+        <button class="btn-ghost btn-wide" id="btn-overlay-cancel">取消</button>
+      </div>
+    </div>
+
+    <!-- 结果提示 -->
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

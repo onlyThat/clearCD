@@ -1,0 +1,53 @@
+{
+  "appId": "com.onlythatlove.diskcleaner",
+  "productName": "onlyThatLove",
+  "copyright": "Copyright © 2026 onlyThatLove",
+  "directories": {
+    "output": "dist",
+    "buildResources": "build"
+  },
+  "files": [
+    "src/**/*",
+    "package.json",
+    "!build/**/*",
+    "!dist/**/*",
+    "!**/*.md"
+  ],
+  "electronLanguages": ["zh-CN", "en-US"],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      },
+      {
+        "target": "7z",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "build/icon.ico",
+    "artifactName": "${productName}-${version}-绿色版.${ext}",
+    "signAndEditExecutable": false
+  },
+  "portable": {
+    "artifactName": "${productName}-${version}-免安装.${ext}"
+  },
+  "nsis": {
+    "artifactName": "${productName}-${version}-安装包.${ext}",
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "onlyThatLove 磁盘清理",
+    "installerIcon": "build/icon.ico",
+    "uninstallerIcon": "build/icon.ico",
+    "installerHeaderIcon": "build/icon.ico",
+    "deleteAppDataOnUninstall": false
+  },
+  "compression": "maximum"
+}
